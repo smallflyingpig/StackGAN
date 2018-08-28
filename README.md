@@ -13,7 +13,7 @@ Tensorflow implementation for reproducing main results in the paper [StackGAN: T
 ### Dependencies
 python 2.7
 
-[TensorFlow 0.12](https://www.tensorflow.org/get_started/os_setup)
+[TensorFlow 1.2](https://www.tensorflow.org/get_started/os_setup)
 
 [Optional] [Torch](http://torch.ch/docs/getting-started.html#_) is needed, if use the pre-trained char-CNN-RNN text encoder.
 
@@ -27,7 +27,8 @@ In addition, please add the project folder to PYTHONPATH and `pip install` the f
 - `pandas`
 - `torchfile`
 
-
+**Anaconda**
+using `conda create -f emvironment.yml` to prepare the vitual environment, including all the Dependencies.
 
 **Data**
 
