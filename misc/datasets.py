@@ -75,7 +75,7 @@ class Dataset(object):
                 h1 = np.floor((ori_size - self._imsize) * np.random.random())
                 w1 = np.floor((ori_size - self._imsize) * np.random.random())
                 cropped_image =\
-                    images[i][w1: w1 + self._imsize, h1: h1 + self._imsize, :]
+                    images[i][int(w1): int(w1 + self._imsize), int(h1): int(h1 + self._imsize), :]
                 if random.random() > 0.5:
                     transformed_images[i] = np.fliplr(cropped_image)
                 else:
