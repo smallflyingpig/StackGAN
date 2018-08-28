@@ -6,10 +6,13 @@ from __future__ import unicode_literals
 # import tensorflow as tf
 import numpy as np
 import os
+import sys
 import pickle
-from misc.utils import get_image
 import scipy.misc
 import pandas as pd
+
+sys.path.append(os.getcwd())
+from misc.utils import get_image
 
 # from glob import glob
 
@@ -43,7 +46,7 @@ def load_bbox(data_dir):
     #
     filename_bbox = {img_file[:-4]: [] for img_file in filenames}
     numImgs = len(filenames)
-    for i in xrange(0, numImgs):
+    for i in range(0, numImgs):
         # bbox = [x-left, y-top, width, height]
         bbox = df_bounding_boxes.iloc[i][1:].tolist()
 
