@@ -28,7 +28,7 @@ In addition, please add the project folder to PYTHONPATH and `pip install` the f
 - `torchfile`
 
 **Anaconda**
-using `conda create -f emvironment.yml` to prepare the vitual environment, including all the Dependencies.
+using `conda env create -f emvironment.yml` to prepare the vitual environment, including all the Dependencies.
 
 **Data**
 
