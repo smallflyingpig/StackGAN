@@ -136,16 +136,16 @@ class CondGANTrainer(object):
         fake_logit = self.model.get_discriminator(fake_images, embeddings)
 
         real_d_loss =\
-            tf.nn.sigmoid_cross_entropy_with_logits(labels=real_logit,
-                                                    logits=tf.ones_like(real_logit))
+            tf.nn.sigmoid_cross_entropy_with_logits(logits=real_logit,
+                                                    labels=tf.ones_like(real_logit))
         real_d_loss = tf.reduce_mean(real_d_loss)
         wrong_d_loss =\
-            tf.nn.sigmoid_cross_entropy_with_logits(labels=wrong_logit,
-                                                    logits=tf.zeros_like(wrong_logit))
+            tf.nn.sigmoid_cross_entropy_with_logits(logits=wrong_logit,
+                                                    labels=tf.zeros_like(wrong_logit))
         wrong_d_loss = tf.reduce_mean(wrong_d_loss)
         fake_d_loss =\
-            tf.nn.sigmoid_cross_entropy_with_logits(labels=fake_logit,
-                                                    logits=tf.zeros_like(fake_logit))
+            tf.nn.sigmoid_cross_entropy_with_logits(logits=fake_logit,
+                                                    labels=tf.zeros_like(fake_logit))
         fake_d_loss = tf.reduce_mean(fake_d_loss)
         if cfg.TRAIN.B_WRONG:
             discriminator_loss =\
@@ -157,8 +157,8 @@ class CondGANTrainer(object):
         self.log_vars.append(("d_loss_fake", fake_d_loss))
 
         generator_loss = \
-            tf.nn.sigmoid_cross_entropy_with_logits(labels=fake_logit,
-                                                    logits=tf.ones_like(fake_logit))
+            tf.nn.sigmoid_cross_entropy_with_logits(logits=fake_logit,
+                                                    labels=tf.ones_like(fake_logit))
         generator_loss = tf.reduce_mean(generator_loss)
 
         return discriminator_loss, generator_loss
