@@ -263,21 +263,21 @@ class CondGANTrainer(object):
         all_sum = {'g': [], 'd': [], 'hr_g': [], 'hr_d': [], 'hist': []}
         for k, v in self.log_vars:
             if k.startswith('g'):
-                all_sum['g'].append(tf.scalar_summary(k, v))
+                all_sum['g'].append(tf.summary.scalar(k, v))
             elif k.startswith('d'):
-                all_sum['d'].append(tf.scalar_summary(k, v))
+                all_sum['d'].append(tf.summary.scalar(k, v))
             elif k.startswith('hr_g'):
-                all_sum['hr_g'].append(tf.scalar_summary(k, v))
+                all_sum['hr_g'].append(tf.summary.scalar(k, v))
             elif k.startswith('hr_d'):
-                all_sum['hr_d'].append(tf.scalar_summary(k, v))
+                all_sum['hr_d'].append(tf.summary.scalar(k, v))
             elif k.startswith('hist'):
                 all_sum['hist'].append(tf.summary.histogram(k, v))
 
-        self.g_sum = tf.merge_summary(all_sum['g'])
-        self.d_sum = tf.merge_summary(all_sum['d'])
-        self.hr_g_sum = tf.merge_summary(all_sum['hr_g'])
-        self.hr_d_sum = tf.merge_summary(all_sum['hr_d'])
-        self.hist_sum = tf.merge_summary(all_sum['hist'])
+        self.g_sum = tf.summary.merge(all_sum['g'])
+        self.d_sum = tf.summary.merge(all_sum['d'])
+        self.hr_g_sum = tf.summary.merge(all_sum['hr_g'])
+        self.hr_d_sum = tf.summary.merge(all_sum['hr_d'])
+        self.hist_sum = tf.summary.merge(all_sum['hist'])
 
     def visualize_one_superimage(self, img_var, images, rows, filename):
         stacked_img = []
@@ -289,7 +289,7 @@ class CondGANTrainer(object):
             # each rows is 1realimage +10_fakeimage
             stacked_img.append(tf.concat(row_img, 1))
         imgs = tf.expand_dims(tf.concat(stacked_img, 0), 0)
-        current_img_summary = tf.image_summary(filename, imgs)
+        current_img_summary = tf.summary.image(filename, imgs)
         return current_img_summary, imgs
 
     def visualization(self, n):
@@ -302,7 +302,7 @@ class CondGANTrainer(object):
                                           self.images[n * n:2 * n * n],
                                           n, "test")
         self.superimages = tf.concat([superimage_train, superimage_test], 0)
-        self.image_summary = tf.merge_summary([fake_sum_train, fake_sum_test])
+        self.image_summary = tf.summary.merge([fake_sum_train, fake_sum_test])
 
         hr_fake_sum_train, hr_superimage_train =\
             self.visualize_one_superimage(self.hr_fake_images[:n * n],
@@ -315,7 +315,7 @@ class CondGANTrainer(object):
         self.hr_superimages =\
             tf.concat([hr_superimage_train, hr_superimage_test], 0)
         self.hr_image_summary =\
-            tf.merge_summary([hr_fake_sum_train, hr_fake_sum_test])
+            tf.summary.merge([hr_fake_sum_train, hr_fake_sum_test])
 
     def preprocess(self, x, n):
         # make sure every row with n column have the same embeddings
