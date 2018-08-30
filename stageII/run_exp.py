@@ -7,7 +7,10 @@ import dateutil.tz
 import datetime
 import argparse
 import pprint
+import sys
+import os
 
+sys.path.append(os.getcwd())
 from misc.datasets import TextDataset
 from stageII.model import CondGAN
 from stageII.trainer import CondGANTrainer
